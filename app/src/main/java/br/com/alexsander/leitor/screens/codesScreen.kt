@@ -1,9 +1,9 @@
 package br.com.alexsander.leitor.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -62,26 +63,26 @@ fun CodeScreen(
     LazyColumn(
         Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(Color.White),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (codes.isEmpty()) {
             item {
                 Text(
                     text = "Você ainda não escaneou nenhum código de barras. Toque no botão abaixo para começar a escanear.",
-                    style = MaterialTheme.typography.labelLarge,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = Color.Black,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxSize()
                         .wrapContentSize(Alignment.Center)
                 )
                 Icon(
-                    Icons.Rounded.Warning, "", Modifier.fillMaxWidth(),
-                    tint = MaterialTheme.colorScheme.error,
+                    Icons.Rounded.Warning, "", Modifier.size(48.dp),
+                    tint = Color.Red
                 )
-                Box(Modifier.fillMaxWidth()) {
-                    Button(goToHome, Modifier.align(Alignment.Center)) {
-                        Text("clique aqui para escanear")
-                    }
+                Button(goToHome, Modifier.height(48.dp)) {
+                    Text("clique aqui para escanear")
                 }
             }
         }

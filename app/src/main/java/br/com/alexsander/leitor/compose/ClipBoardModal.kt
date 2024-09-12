@@ -1,9 +1,12 @@
 package br.com.alexsander.leitor.compose
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import br.com.alexsander.leitor.data.Code
 
 @Composable
@@ -15,9 +18,17 @@ fun ClipBoardModal(
 ) {
     val sheetState = rememberModalBottomSheetState()
     ModalBottomSheet(
+        modifier = Modifier.fillMaxWidth(),
         onDismissRequest = onDismissRequest,
         sheetState = sheetState
     ) {
         CodeItem(code = code!!, { copy(it) })
     }
+}
+
+
+@Preview
+@Composable
+fun ClipBoardModalPreview() {
+    ClipBoardModal(code = Code(value = "text"), copy = { }) { }
 }
