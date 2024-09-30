@@ -8,7 +8,8 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Warning
+import androidx.compose.material.icons.rounded.CameraAlt
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -78,11 +79,12 @@ fun CodeScreen(
                         .wrapContentSize(Alignment.Center)
                 )
                 Icon(
-                    Icons.Rounded.Warning, "", Modifier.size(48.dp),
-                    tint = Color.Red
+                    Icons.Rounded.Search, null, Modifier.size(48.dp),
+                    tint = Color.Black
                 )
                 Button(goToHome, Modifier.height(48.dp)) {
                     Text("clique aqui para escanear")
+                    Icon(Icons.Rounded.CameraAlt, null, Modifier.size(48.dp))
                 }
             }
         }

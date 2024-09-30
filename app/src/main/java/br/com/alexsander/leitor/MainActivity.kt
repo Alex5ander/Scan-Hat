@@ -5,7 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.QrCode
@@ -27,6 +30,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -41,12 +46,17 @@ import br.com.alexsander.leitor.screens.navigateToCodes
 import br.com.alexsander.leitor.screens.navigateToHome
 import br.com.alexsander.leitor.ui.theme.LeitorTheme
 import br.com.alexsander.leitor.viewmodel.CodeViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MobileAds.initialize(this)
         installSplashScreen()
         val db = AppDatabase.getInstance(this)
         val codeDAO = db.codeDAO()
@@ -112,13 +122,31 @@ class MainActivity : ComponentActivity() {
                     },
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
-                    NavHost(
-                        navController = navController,
-                        startDestination = HOME_ROUTE,
-                        Modifier.padding(innerPadding)
+                    Column(
+                        Modifier
+                            .padding(innerPadding)
                     ) {
-                        homeScreen(viewModel) { copy(it) }
-                        codesScreen(viewModel, navController, { copy(it) }, { delete(it) })
+                        NavHost(
+                            navController = navController,
+                            startDestination = HOME_ROUTE,
+                            Modifier.weight(1f)
+                        ) {
+                            homeScreen(viewModel) { copy(it) }
+                            codesScreen(viewModel, navController, { copy(it) }, { delete(it) })
+                        }
+                        AndroidView(
+                            {
+                                AdView(it).apply {
+                                    setAdSize(AdSize.BANNER)
+//                                    ca-app-pub-3940256099942544/9214589741
+                                    adUnitId = "ca-app-pub-3940256099942544/9214589741"
+                                    loadAd(AdRequest.Builder().build())
+                                }
+                            },
+                            Modifier
+                                .fillMaxWidth()
+                                .height(AdSize.BANNER.height.dp)
+                        )
                     }
                 }
             }
