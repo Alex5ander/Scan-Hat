@@ -20,8 +20,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import br.com.alexsander.leitor.R
 import br.com.alexsander.leitor.data.Code
 
 @Composable
@@ -60,12 +62,12 @@ fun CodeItem(
         AlertDialog(
             icon = { Icon(Icons.Rounded.Warning, "", tint = MaterialTheme.colorScheme.error) },
             title = {
-                Text("Confirmação de exclusão")
+                Text(stringResource(R.string.delete_confirm_title))
             },
             text = {
                 Text(
-                    "Tem certeza que você deseja apagar o código: ${code.value}?",
-                    overflow = TextOverflow.Ellipsis,
+                    "${stringResource(R.string.delete_confirm_message)} ${code.value}?"
+,                    overflow = TextOverflow.Ellipsis,
                     maxLines = 3
                 )
             },
@@ -75,11 +77,11 @@ fun CodeItem(
                     delete(code)
                     openDialog = false
                 }) {
-                    Text("Sim")
+                    Text(stringResource(R.string.yes))
                 }
             }, dismissButton = {
                 TextButton(onClick = { openDialog = false }) {
-                    Text("Não")
+                    Text(stringResource(R.string.no))
                 }
             })
     }

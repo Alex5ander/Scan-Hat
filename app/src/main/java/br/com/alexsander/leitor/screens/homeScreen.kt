@@ -5,7 +5,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.ImageAnalysis.COORDINATE_SYSTEM_VIEW_REFERENCED
 import androidx.camera.mlkit.vision.MlKitAnalyzer
 import androidx.camera.view.LifecycleCameraController
-import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
@@ -26,12 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
+import br.com.alexsander.leitor.compose.CameraPreview
 import br.com.alexsander.leitor.compose.ClipBoardModal
 import br.com.alexsander.leitor.data.Code
 import br.com.alexsander.leitor.viewmodel.CodeViewModel
@@ -57,18 +56,15 @@ fun NavGraphBuilder.homeScreen(viewModel: CodeViewModel, copy: (String) -> Unit 
 @Composable
 fun HomeScreen(onRead: (Code) -> Unit = { }, copy: (String) -> Unit = { }) {
     val context = LocalContext.current
-    val life = androidx.lifecycle.compose.LocalLifecycleOwner.current
     val managedActivityResultLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) {}
-    val previewView = PreviewView(context)
     val cameraController = remember { LifecycleCameraController(context) }
     var code by remember { mutableStateOf<Code?>(null) }
     val torchEnabled = remember { mutableStateOf(false) }
     val barcodeScanner = BarcodeScanning.getClient()
     LaunchedEffect(Unit) {
         managedActivityResultLauncher.launch(android.Manifest.permission.CAMERA)
-        cameraController.unbind()
 
         cameraController.setImageAnalysisAnalyzer(
             ContextCompat.getMainExecutor(context),
@@ -85,13 +81,10 @@ fun HomeScreen(onRead: (Code) -> Unit = { }, copy: (String) -> Unit = { }) {
                 }
             }
         )
-
-        cameraController.bindToLifecycle(life)
-        previewView.controller = cameraController
     }
 
     Box {
-        AndroidView({ previewView }, Modifier.fillMaxSize())
+        CameraPreview(cameraController, Modifier.fillMaxSize())
         IconButton(
             onClick = {
                 torchEnabled.value = !torchEnabled.value

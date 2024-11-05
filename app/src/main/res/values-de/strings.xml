@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Scan Hat</string>
+    <string name="copy_action">Code in die Zwischenablage kopiert</string>
+    <string name="delete_action">Code erfolgreich gelöscht!</string>
+    <string name="empty_message">Sie haben noch keinen Barcode gescannt. Tippen Sie auf die Schaltfläche unten, um zu scannen.</string>
+    <string name="scan_action">Hier klicken zum Scannen</string>
+    <string name="delete_confirm_title">Löschbestätigung</string>
+    <string name="delete_confirm_message">Sind Sie sicher, dass Sie den Code löschen möchten:</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+</resources>

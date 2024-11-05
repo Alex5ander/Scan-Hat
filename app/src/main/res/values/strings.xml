@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Scan Hat</string>
+    <string name="copy_action">Código copiado para área de transferência</string>
+    <string name="delete_action">Código deletado com sucesso!</string>
+    <string name="empty_message">Você ainda não escaneou nenhum código de barras. Toque no botão abaixo para começar a escanear.</string>
+    <string name="scan_action">Clique aqui para escanear</string>
+    <string name="delete_confirm_title">Confirmação de exclusão</string>
+    <string name="delete_confirm_message">Tem certeza que você deseja apagar o código:</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
 </resources>

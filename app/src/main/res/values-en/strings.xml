@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Scan Hat</string>
+    <string name="copy_action">Code copied to clipboard</string>
+    <string name="delete_action">Code successfully deleted!</string>
+    <string name="empty_message">You haven\'t scanned any barcodes yet. Tap the button below to start scanning.</string>
+    <string name="scan_action">Click here to scan</string>
+    <string name="delete_confirm_title">Delete Confirmation</string>
+    <string name="delete_confirm_message">Are you sure you want to delete the code:</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+</resources>

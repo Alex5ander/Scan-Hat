@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,6 +28,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
+import br.com.alexsander.leitor.R
 import br.com.alexsander.leitor.compose.CodeItem
 import br.com.alexsander.leitor.data.Code
 import br.com.alexsander.leitor.viewmodel.CodeViewModel
@@ -70,7 +72,7 @@ fun CodeScreen(
         if (codes.isEmpty()) {
             item {
                 Text(
-                    text = "Você ainda não escaneou nenhum código de barras. Toque no botão abaixo para começar a escanear.",
+                    text = stringResource(R.string.empty_message),
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color.Black,
                     textAlign = TextAlign.Center,
@@ -83,7 +85,7 @@ fun CodeScreen(
                     tint = Color.Black
                 )
                 Button(goToHome, Modifier.height(48.dp)) {
-                    Text("clique aqui para escanear")
+                    Text(stringResource(R.string.scan_action))
                     Icon(Icons.Rounded.CameraAlt, null, Modifier.size(48.dp))
                 }
             }

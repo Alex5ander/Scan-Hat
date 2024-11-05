@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Scan Hat</string>
+    <string name="copy_action">Código copiado al portapapeles</string>
+    <string name="delete_action">¡Código eliminado con éxito!</string>
+    <string name="empty_message">Aún no has escaneado ningún código de barras. Toca el botón de abajo para empezar a escanear.</string>
+    <string name="scan_action">Haz clic aquí para escanear</string>
+    <string name="delete_confirm_title">Confirmación de eliminación</string>
+    <string name="delete_confirm_message">¿Estás seguro de que deseas eliminar el código:</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+</resources>

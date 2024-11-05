@@ -1,25 +1,25 @@
 [versions]
-agp = "8.5.2"
+agp = "8.6.1"
 barcodeScanning = "17.3.0"
-cameraCore = "1.3.4"
+cameraCore = "1.4.0"
 coreSplashscreen = "1.0.1"
-firebaseBom = "33.2.0"
+firebaseBom = "33.5.1"
 kotlin = "1.9.0"
-coreKtx = "1.13.1"
+coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.5"
-activityCompose = "1.9.2"
-composeBom = "2024.09.01"
-materialIconsExtended = "1.7.1"
-navigationCompose = "2.8.0"
-playServicesAds = "23.3.0"
+lifecycleRuntimeKtx = "2.8.7"
+activityCompose = "1.9.3"
+composeBom = "2024.10.01"
+materialIconsExtended = "1.7.5"
+navigationCompose = "2.8.3"
+playServicesAds = "23.5.0"
 roomCompilerVersion = "2.6.1"
 roomRuntime = "2.6.1"
-xandroidxCameraCameraVideo3 = "1.3.4"
-cameraView = "1.3.4"
-cameraMlkitVision = "1.4.0-rc01"
+xandroidxCameraCameraVideo3 = "1.4.0"
+cameraView = "1.4.0"
+cameraMlkitVision = "1.4.0"
 
 
 [libraries]
@@ -30,7 +30,9 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+#noinspection SimilarGradleDependency
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+#noinspection SimilarGradleDependency
 androidx-room-compiler-v250 = { module = "androidx.room:room-compiler", version.ref = "roomCompilerVersion" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
@@ -58,4 +60,3 @@ androidx-camera-mlkit-vision = { group = "androidx.camera", name = "camera-mlkit
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-

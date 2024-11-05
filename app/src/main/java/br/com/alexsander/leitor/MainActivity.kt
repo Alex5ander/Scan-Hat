@@ -78,12 +78,12 @@ class MainActivity : ComponentActivity() {
 
             fun copy(text: String) {
                 clipboardManager.setText(AnnotatedString(text))
-                showSnackBar("copiado para área de transferência")
+                showSnackBar(getString(R.string.copy_action))
             }
 
             fun delete(code: Code) {
                 viewModel.delete(code)
-                showSnackBar("Código deletado com sucesso!")
+                showSnackBar(getString(R.string.delete_action))
             }
 
             LeitorTheme {
