@@ -9,4 +9,7 @@
     <string name="delete_confirm_message">क्या आप इस कोड को हटाना चाहते हैं:</string>
     <string name="yes">हाँ</string>
     <string name="no">नहीं</string>
+    <string name="download">बचाना</string>
+    <string name="type_here">यहां लिखें</string>
+    <string name="generate_qrcode">क्यूआर कोड उत्पन्न करें</string>
 </resources>

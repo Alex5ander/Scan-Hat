@@ -14,8 +14,8 @@ android {
         applicationId = "br.com.alexsander.leitor"
         minSdk = 24
         targetSdk = 34
-        versionCode = 7
-        versionName = "1.0"
+        versionCode = 8
+        versionName = "2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -66,7 +66,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.camera.view)
-    implementation(libs.androidx.camera.mlkit.vision)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -77,9 +77,6 @@ dependencies {
 
     implementation(libs.androidx.camera.core)
     implementation(libs.androidx.camera.camera.camera22)
-    implementation(libs.androidx.camera.camera.lifecycle4)
-    implementation(libs.xandroidx.camera.camera.video5)
-    implementation(libs.barcode.scanning)
 
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.room.runtime)
@@ -94,4 +91,6 @@ dependencies {
 
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.play.services.ads)
+
+    implementation(libs.core)
 }

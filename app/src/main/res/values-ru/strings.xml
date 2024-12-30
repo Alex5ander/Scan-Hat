@@ -9,4 +9,7 @@
     <string name="delete_confirm_message">Вы уверены, что хотите удалить код:</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+    <string name="download">Сохранять</string>
+    <string name="type_here">Введите здесь</string>
+    <string name="generate_qrcode">Создать QR-код</string>
 </resources>

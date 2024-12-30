@@ -9,4 +9,7 @@
     <string name="delete_confirm_message">هل أنت متأكد من أنك تريد حذف الرمز:</string>
     <string name="yes">نعم</string>
     <string name="no">لا</string>
+    <string name="download">حفظ</string>
+    <string name="type_here">اكتب هنا</string>
+    <string name="generate_qrcode">إنشاء رمز QR</string>
 </resources>

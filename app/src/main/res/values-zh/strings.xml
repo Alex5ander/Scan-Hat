@@ -9,4 +9,7 @@
     <string name="delete_confirm_message">您确定要删除此代码吗：</string>
     <string name="yes">是</string>
     <string name="no">否</string>
+    <string name="download">节省</string>
+    <string name="type_here">在这里输入</string>
+    <string name="generate_qrcode">生成二维码</string>
 </resources>

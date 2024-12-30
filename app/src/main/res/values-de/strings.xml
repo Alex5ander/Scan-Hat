@@ -9,4 +9,7 @@
     <string name="delete_confirm_message">Sind Sie sicher, dass Sie den Code löschen möchten:</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
+    <string name="download">Speichern</string>
+    <string name="type_here">Hier eingeben</string>
+    <string name="generate_qrcode">QR-Code generieren</string>
 </resources>

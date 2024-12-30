@@ -1,9 +1,8 @@
 package br.com.alexsander.leitor.screens
 
+import android.graphics.Bitmap
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.camera.core.ImageAnalysis.COORDINATE_SYSTEM_VIEW_REFERENCED
-import androidx.camera.mlkit.vision.MlKitAnalyzer
 import androidx.camera.view.LifecycleCameraController
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,7 +33,10 @@ import br.com.alexsander.leitor.compose.CameraPreview
 import br.com.alexsander.leitor.compose.ClipBoardModal
 import br.com.alexsander.leitor.data.Code
 import br.com.alexsander.leitor.viewmodel.CodeViewModel
-import com.google.mlkit.vision.barcode.BarcodeScanning
+import com.google.zxing.BinaryBitmap
+import com.google.zxing.MultiFormatReader
+import com.google.zxing.RGBLuminanceSource
+import com.google.zxing.common.HybridBinarizer
 
 const val HOME_ROUTE = "Escâner"
 
@@ -62,25 +64,41 @@ fun HomeScreen(onRead: (Code) -> Unit = { }, copy: (String) -> Unit = { }) {
     val cameraController = remember { LifecycleCameraController(context) }
     var code by remember { mutableStateOf<Code?>(null) }
     val torchEnabled = remember { mutableStateOf(false) }
-    val barcodeScanner = BarcodeScanning.getClient()
+
+    fun decodeBarcode(bitmap: Bitmap): String? {
+        val pixels = IntArray(bitmap.width * bitmap.height)
+        bitmap.getPixels(pixels, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
+
+        val source = RGBLuminanceSource(bitmap.width, bitmap.height, pixels)
+        val binaryBitmap = BinaryBitmap(HybridBinarizer(source))
+
+        return try {
+            MultiFormatReader().decode(binaryBitmap).text
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     LaunchedEffect(Unit) {
         managedActivityResultLauncher.launch(android.Manifest.permission.CAMERA)
 
         cameraController.setImageAnalysisAnalyzer(
-            ContextCompat.getMainExecutor(context),
-            MlKitAnalyzer(
-                listOf(barcodeScanner),
-                COORDINATE_SYSTEM_VIEW_REFERENCED,
-                ContextCompat.getMainExecutor(context)
-            ) { result: MlKitAnalyzer.Result? ->
-                result?.getValue(barcodeScanner)?.forEach { r ->
-                    if (code == null) {
-                        code = Code(value = r.rawValue.toString())
-                        onRead(code!!)
-                    }
+            ContextCompat.getMainExecutor(context)
+        ) { imageProxy ->
+            try {
+                val bitmap = imageProxy.toBitmap()
+                val decodedText =
+                    decodeBarcode(bitmap)
+                if (decodedText != null && code == null) {
+                    code = Code(value = decodedText)
+                    onRead(code!!)
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                imageProxy.close()
             }
-        )
+        }
     }
 
     Box {

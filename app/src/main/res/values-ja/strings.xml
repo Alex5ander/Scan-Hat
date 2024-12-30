@@ -9,4 +9,7 @@
     <string name="delete_confirm_message">このコードを削除してもよろしいですか：</string>
     <string name="yes">はい</string>
     <string name="no">いいえ</string>
+    <string name="download">保存</string>
+    <string name="type_here">ここに入力</string>
+    <string name="generate_qrcode">QRコードを生成する</string>
 </resources>

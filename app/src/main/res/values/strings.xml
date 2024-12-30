@@ -8,4 +8,7 @@
     <string name="delete_confirm_message">Tem certeza que você deseja apagar o código:</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+    <string name="download">Salvar</string>
+    <string name="type_here">Digite aqui</string>
+    <string name="generate_qrcode">Gerar QRCode</string>
 </resources>

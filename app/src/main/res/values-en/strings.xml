@@ -9,4 +9,7 @@
     <string name="delete_confirm_message">Are you sure you want to delete the code:</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="download">Save</string>
+    <string name="type_here">Type here</string>
+    <string name="generate_qrcode">Generate QRCode</string>
 </resources>

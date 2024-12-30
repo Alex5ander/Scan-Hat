@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.QrCode
 import androidx.compose.material.icons.filled.QrCodeScanner
 import androidx.compose.material3.BottomAppBar
@@ -39,10 +40,13 @@ import androidx.navigation.compose.rememberNavController
 import br.com.alexsander.leitor.data.AppDatabase
 import br.com.alexsander.leitor.data.Code
 import br.com.alexsander.leitor.screens.CODES_ROUTE
+import br.com.alexsander.leitor.screens.GENERATE_ROUTE
 import br.com.alexsander.leitor.screens.HOME_ROUTE
 import br.com.alexsander.leitor.screens.codesScreen
+import br.com.alexsander.leitor.screens.generateScreen
 import br.com.alexsander.leitor.screens.homeScreen
 import br.com.alexsander.leitor.screens.navigateToCodes
+import br.com.alexsander.leitor.screens.navigateToGenerate
 import br.com.alexsander.leitor.screens.navigateToHome
 import br.com.alexsander.leitor.ui.theme.LeitorTheme
 import br.com.alexsander.leitor.viewmodel.CodeViewModel
@@ -104,16 +108,23 @@ class MainActivity : ComponentActivity() {
                                 IconButton(
                                     navController::navigateToHome,
                                     Modifier.weight(1f),
-                                    enabled = currentBackStackEntry?.destination?.route == CODES_ROUTE,
+                                    enabled = currentBackStackEntry?.destination?.route != HOME_ROUTE,
                                 ) {
                                     Icon(Icons.Filled.QrCodeScanner, "")
                                 }
                                 IconButton(
                                     navController::navigateToCodes,
                                     Modifier.weight(1f),
-                                    enabled = currentBackStackEntry?.destination?.route == HOME_ROUTE,
+                                    enabled = currentBackStackEntry?.destination?.route != CODES_ROUTE,
                                 ) {
                                     Icon(Icons.Filled.QrCode, "")
+                                }
+                                IconButton(
+                                    navController::navigateToGenerate,
+                                    Modifier.weight(1f),
+                                    enabled = currentBackStackEntry?.destination?.route != GENERATE_ROUTE,
+                                ) {
+                                    Icon(Icons.Filled.Image, "")
                                 }
                             },
                             containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -133,6 +144,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                             homeScreen(viewModel) { copy(it) }
                             codesScreen(viewModel, navController, { copy(it) }, { delete(it) })
+                            generateScreen()
                         }
                         AndroidView(
                             {
