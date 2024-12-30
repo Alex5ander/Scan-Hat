@@ -2,8 +2,6 @@ package br.com.alexsander.leitor.screens
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.OptIn
-import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis.COORDINATE_SYSTEM_VIEW_REFERENCED
 import androidx.camera.mlkit.vision.MlKitAnalyzer
 import androidx.camera.view.LifecycleCameraController
@@ -56,7 +54,6 @@ fun NavGraphBuilder.homeScreen(viewModel: CodeViewModel, copy: (String) -> Unit 
     }
 }
 
-@OptIn(ExperimentalGetImage::class)
 @Composable
 fun HomeScreen(onRead: (Code) -> Unit = { }, copy: (String) -> Unit = { }) {
     val context = LocalContext.current
