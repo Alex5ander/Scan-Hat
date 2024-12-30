@@ -85,7 +85,7 @@ fun GenerateScreen() {
                 type = "image/png"
                 putExtra(Intent.EXTRA_STREAM, bitmapUri)
             }
-            context.startActivity(intent)
+            context.startActivity(Intent.createChooser(intent, "Share"))
         } catch (e: IOException) {
             e.printStackTrace()
         }
