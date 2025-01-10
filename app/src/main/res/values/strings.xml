@@ -11,4 +11,7 @@
     <string name="download">Salvar</string>
     <string name="type_here">Digite aqui</string>
     <string name="generate_qrcode">Gerar QRCode</string>
+    <string name="read_screen">Escâner</string>
+    <string name="codes_screen">Códigos</string>
+    <string name="generate_screen">Gerar código QR</string>
 </resources>

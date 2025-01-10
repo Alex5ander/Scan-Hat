@@ -11,7 +11,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.ListItem
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -37,8 +36,7 @@ fun CodeItem(
         Text(
             text = code.value,
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            color = Color.Black
+            overflow = TextOverflow.Ellipsis
         )
     },
         trailingContent = {
@@ -60,14 +58,14 @@ fun CodeItem(
     HorizontalDivider()
     if (openDialog && delete != null) {
         AlertDialog(
-            icon = { Icon(Icons.Rounded.Warning, "", tint = MaterialTheme.colorScheme.error) },
+            icon = { Icon(Icons.Rounded.Warning, "") },
             title = {
                 Text(stringResource(R.string.delete_confirm_title))
             },
             text = {
                 Text(
-                    "${stringResource(R.string.delete_confirm_message)} ${code.value}?"
-,                    overflow = TextOverflow.Ellipsis,
+                    "${stringResource(R.string.delete_confirm_message)} ${code.value}?",
+                    overflow = TextOverflow.Ellipsis,
                     maxLines = 3
                 )
             },

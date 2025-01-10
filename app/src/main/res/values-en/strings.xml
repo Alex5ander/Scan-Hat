@@ -12,4 +12,7 @@
     <string name="download">Save</string>
     <string name="type_here">Type here</string>
     <string name="generate_qrcode">Generate QRCode</string>
+    <string name="read_screen">Scanner</string>
+    <string name="codes_screen">Codes</string>
+    <string name="generate_screen">Generate QR code</string>
 </resources>

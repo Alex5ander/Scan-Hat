@@ -1,6 +1,5 @@
 package br.com.alexsander.leitor.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -19,7 +18,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,15 +27,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
 import br.com.alexsander.leitor.R
+import br.com.alexsander.leitor.ROUTE
 import br.com.alexsander.leitor.compose.CodeItem
 import br.com.alexsander.leitor.data.Code
 import br.com.alexsander.leitor.viewmodel.CodeViewModel
 
-const val CODES_ROUTE = "Códigos"
-
 fun NavHostController.navigateToCodes() {
-    navigate(CODES_ROUTE, navOptions {
-        popUpTo(HOME_ROUTE) {
+    navigate(ROUTE.SECOND.name, navOptions {
+        popUpTo(ROUTE.FIRST.name) {
             inclusive = true
         }
     })
@@ -49,7 +46,7 @@ fun NavGraphBuilder.codesScreen(
     copy: (String) -> Unit = { },
     delete: (Code) -> Unit = { }
 ) {
-    composable(CODES_ROUTE)
+    composable(ROUTE.SECOND.name)
     {
         val codes by viewModel.codes.collectAsState(emptyList())
         CodeScreen(codes, navController::navigateToHome, copy, delete)
@@ -65,24 +62,21 @@ fun CodeScreen(
 ) {
     LazyColumn(
         Modifier
-            .fillMaxSize()
-            .background(Color.White),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (codes.isEmpty()) {
             item {
                 Text(
                     text = stringResource(R.string.empty_message),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color.Black,
+                    style = MaterialTheme.typography.titleLarge,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxSize()
                         .wrapContentSize(Alignment.Center)
                 )
                 Icon(
-                    Icons.Rounded.Search, null, Modifier.size(48.dp),
-                    tint = Color.Black
+                    Icons.Rounded.Search, null, Modifier.size(48.dp)
                 )
                 Button(goToHome, Modifier.height(48.dp)) {
                     Text(stringResource(R.string.scan_action))

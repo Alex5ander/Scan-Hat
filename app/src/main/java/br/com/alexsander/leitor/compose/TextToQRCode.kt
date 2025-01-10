@@ -18,9 +18,7 @@ fun ColumnScope.TextToQRCode(text: String, onGenerated: (Bitmap) -> Unit) {
     val density = LocalDensity.current.density
     val size = (300.dp * density).value.toInt()
     val qrCodeBitmap = remember(text) {
-
-        val qrCodeWriter = QRCodeWriter()
-        val matrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, size, size)
+        val matrix = QRCodeWriter().encode(text, BarcodeFormat.QR_CODE, size, size)
 
         val bitmap =
             Bitmap.createBitmap(matrix.width, matrix.height, Bitmap.Config.ARGB_8888).apply {

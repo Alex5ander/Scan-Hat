@@ -31,23 +31,23 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
 import br.com.alexsander.leitor.R
+import br.com.alexsander.leitor.ROUTE
 import br.com.alexsander.leitor.compose.TextToQRCode
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
-const val GENERATE_ROUTE = "Gerar QRCode"
 
 fun NavHostController.navigateToGenerate() {
-    navigate(GENERATE_ROUTE, navOptions {
-        popUpTo(HOME_ROUTE) {
+    navigate(ROUTE.THIRD.name, navOptions {
+        popUpTo(ROUTE.FIRST.name) {
             inclusive = true
         }
     })
 }
 
 fun NavGraphBuilder.generateScreen() {
-    composable(GENERATE_ROUTE)
+    composable(ROUTE.THIRD.name)
     {
         GenerateScreen()
     }
@@ -65,7 +65,7 @@ fun GenerateScreen() {
         showGeneratedQRCode = false
     }
 
-    fun onClickGenrate() {
+    fun onClickGenerate() {
         showGeneratedQRCode = textFieldValue.isNotEmpty()
     }
 
@@ -91,7 +91,7 @@ fun GenerateScreen() {
         }
     }
 
-    Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement =Arrangement.spacedBy(16.dp)) {
         TextField(
             modifier = Modifier.fillMaxWidth(),
             value = textFieldValue,
@@ -99,7 +99,7 @@ fun GenerateScreen() {
             onValueChange = ::onValueChange
         )
         Button(
-            ::onClickGenrate,
+            ::onClickGenerate,
             Modifier.height(48.dp),
             enabled = canGenerate
         ) {
@@ -110,22 +110,16 @@ fun GenerateScreen() {
             )
         }
         if (showGeneratedQRCode && textFieldValue.isNotEmpty()) {
-            Column(
-                Modifier.weight(1f),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+            TextToQRCode(textFieldValue) { bitmap = it }
+            Button(
+                ::onClickDownload,
+                Modifier.height(48.dp)
             ) {
-                TextToQRCode(textFieldValue) { bitmap = it }
-                Button(
-                    ::onClickDownload,
-                    Modifier.height(48.dp)
-                ) {
-                    Text(stringResource(R.string.download))
-                    Icon(
-                        Icons.Filled.Download,
-                        ""
-                    )
-                }
+                Text(stringResource(R.string.download))
+                Icon(
+                    Icons.Filled.Download,
+                    ""
+                )
             }
         }
     }

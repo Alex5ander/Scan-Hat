@@ -31,24 +31,23 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
+import br.com.alexsander.leitor.ROUTE
 import br.com.alexsander.leitor.compose.CameraPreview
 import br.com.alexsander.leitor.compose.ClipBoardModal
 import br.com.alexsander.leitor.data.Code
 import br.com.alexsander.leitor.viewmodel.CodeViewModel
 import com.google.mlkit.vision.barcode.BarcodeScanning
 
-const val HOME_ROUTE = "Escâner"
-
 fun NavHostController.navigateToHome() {
-    navigate(HOME_ROUTE, navOptions {
-        popUpTo(CODES_ROUTE) {
+    navigate(ROUTE.FIRST.name, navOptions {
+        popUpTo(ROUTE.SECOND.name) {
             inclusive = true
         }
     })
 }
 
 fun NavGraphBuilder.homeScreen(viewModel: CodeViewModel, copy: (String) -> Unit = {}) {
-    composable(HOME_ROUTE)
+    composable(ROUTE.FIRST.name)
     {
         HomeScreen(viewModel::insert, copy)
     }

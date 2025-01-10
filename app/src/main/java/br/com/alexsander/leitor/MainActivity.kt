@@ -5,59 +5,43 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Image
-import androidx.compose.material.icons.filled.QrCode
-import androidx.compose.material.icons.filled.QrCodeScanner
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import br.com.alexsander.leitor.compose.AD
+import br.com.alexsander.leitor.compose.BottomBar
+import br.com.alexsander.leitor.compose.TopBar
 import br.com.alexsander.leitor.data.AppDatabase
 import br.com.alexsander.leitor.data.Code
-import br.com.alexsander.leitor.screens.CODES_ROUTE
-import br.com.alexsander.leitor.screens.GENERATE_ROUTE
-import br.com.alexsander.leitor.screens.HOME_ROUTE
 import br.com.alexsander.leitor.screens.codesScreen
 import br.com.alexsander.leitor.screens.generateScreen
 import br.com.alexsander.leitor.screens.homeScreen
-import br.com.alexsander.leitor.screens.navigateToCodes
-import br.com.alexsander.leitor.screens.navigateToGenerate
-import br.com.alexsander.leitor.screens.navigateToHome
 import br.com.alexsander.leitor.ui.theme.LeitorTheme
 import br.com.alexsander.leitor.viewmodel.CodeViewModel
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import kotlinx.coroutines.launch
 
+enum class ROUTE(@StringRes val title: Int) {
+    FIRST(R.string.read_screen),
+    SECOND(R.string.codes_screen),
+    THIRD(R.string.generate_screen)
+}
+
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MobileAds.initialize(this)
@@ -66,6 +50,7 @@ class MainActivity : ComponentActivity() {
         val codeDAO = db.codeDAO()
         val viewModel by viewModels<CodeViewModel> { CodeViewModel.provideFactory(codeDAO) }
         enableEdgeToEdge()
+
         setContent {
             val navController = rememberNavController()
             val currentBackStackEntry by navController.currentBackStackEntryAsState()
@@ -90,47 +75,15 @@ class MainActivity : ComponentActivity() {
                 showSnackBar(getString(R.string.delete_action))
             }
 
+            val currentScreen =
+                ROUTE.entries.find { it.name == currentBackStackEntry?.destination?.route.toString() }
+            val title = getString(currentScreen?.title ?: R.string.read_screen)
+
             LeitorTheme {
                 Scaffold(
                     snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
-                    topBar = {
-                        CenterAlignedTopAppBar(
-                            { Text(currentBackStackEntry?.destination?.route.toString()) },
-                            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                titleContentColor = MaterialTheme.colorScheme.primary
-                            )
-                        )
-                    },
-                    bottomBar = {
-                        BottomAppBar(
-                            actions = {
-                                IconButton(
-                                    navController::navigateToHome,
-                                    Modifier.weight(1f),
-                                    enabled = currentBackStackEntry?.destination?.route != HOME_ROUTE,
-                                ) {
-                                    Icon(Icons.Filled.QrCodeScanner, "")
-                                }
-                                IconButton(
-                                    navController::navigateToCodes,
-                                    Modifier.weight(1f),
-                                    enabled = currentBackStackEntry?.destination?.route != CODES_ROUTE,
-                                ) {
-                                    Icon(Icons.Filled.QrCode, "")
-                                }
-                                IconButton(
-                                    navController::navigateToGenerate,
-                                    Modifier.weight(1f),
-                                    enabled = currentBackStackEntry?.destination?.route != GENERATE_ROUTE,
-                                ) {
-                                    Icon(Icons.Filled.Image, "")
-                                }
-                            },
-                            containerColor = MaterialTheme.colorScheme.primaryContainer,
-                            contentColor = MaterialTheme.colorScheme.primary
-                        )
-                    },
+                    topBar = { TopBar(title) },
+                    bottomBar = { BottomBar(navController, currentBackStackEntry) },
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
                     Column(
@@ -139,26 +92,14 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavHost(
                             navController = navController,
-                            startDestination = HOME_ROUTE,
+                            startDestination = ROUTE.FIRST.name,
                             Modifier.weight(1f)
                         ) {
                             homeScreen(viewModel) { copy(it) }
                             codesScreen(viewModel, navController, { copy(it) }, { delete(it) })
                             generateScreen()
                         }
-                        AndroidView(
-                            {
-                                AdView(it).apply {
-                                    setAdSize(AdSize.BANNER)
-//                                    ca-app-pub-3940256099942544/9214589741
-                                    adUnitId = "ca-app-pub-3940256099942544/9214589741"
-                                    loadAd(AdRequest.Builder().build())
-                                }
-                            },
-                            Modifier
-                                .fillMaxWidth()
-                                .height(AdSize.BANNER.height.dp)
-                        )
+                        AD()
                     }
                 }
             }
