@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp")
-
     id("com.google.gms.google-services")
 }
 
@@ -12,10 +12,10 @@ android {
 
     defaultConfig {
         applicationId = "br.com.alexsander.leitor"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 10
-        versionName = "2.2"
+        minSdk = 21
+        targetSdk = 35
+        versionCode = 11
+        versionName = "2.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -26,6 +26,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

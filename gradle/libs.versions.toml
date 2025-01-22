@@ -4,15 +4,15 @@ barcodeScanning = "17.3.0"
 cameraCore = "1.4.1"
 core = "3.4.1"
 coreSplashscreen = "1.0.1"
-firebaseBom = "33.7.0"
-kotlin = "1.9.0"
+firebaseBom = "33.8.0"
+kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.9.3"
-composeBom = "2024.12.01"
+activityCompose = "1.10.0"
+composeBom = "2025.01.00"
 materialIconsExtended = "1.7.6"
 navigationCompose = "2.8.5"
 playServicesAds = "23.6.0"
@@ -59,4 +59,5 @@ androidx-camera-mlkit-vision = { group = "androidx.camera", name = "camera-mlkit
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

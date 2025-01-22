@@ -15,4 +15,7 @@
     <string name="read_screen">Scanner</string>
     <string name="codes_screen">Codes</string>
     <string name="generate_screen">Generate QR code</string>
+    <string name="first_bottom_button">Scanner</string>
+    <string name="second_bottom_button">Code list</string>
+    <string name="third_bottom_button">Generate QR code</string>
 </resources>

@@ -14,4 +14,7 @@
     <string name="read_screen">Escâner</string>
     <string name="codes_screen">Códigos</string>
     <string name="generate_screen">Gerar código QR</string>
+    <string name="first_bottom_button">Escâner</string>
+    <string name="second_bottom_button">Lista de códigos</string>
+    <string name="third_bottom_button">Gerar código QR</string>
 </resources>
